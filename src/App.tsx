@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import { Counter } from "./features/counter/Counter";
+import TrendingMovies from "./features/movies/TrendingMovies";
 import "./App.css";
 
 function App() {
@@ -17,7 +18,8 @@ function App() {
         <span>LAB REDUX + TS</span>
       </header>
       <main className="app-main">
-        <Counter />
+        {/* <Counter /> */}
+        <TrendingMovies />
       </main>
     </div>
   );
