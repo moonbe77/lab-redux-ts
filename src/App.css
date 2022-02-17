@@ -26,12 +26,13 @@
 }
 
 .app-main {
-  border: 1px solid #000;
+  /* border: 1px solid #000; */
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 80%;
   height: 100vh;
 }
 

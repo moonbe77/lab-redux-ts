@@ -8,10 +8,21 @@ export interface tmdbApiResponse {
   total_pages: number;
   results: Array<Movie>;
 }
+export enum PeriodType {
+  DAY = "day",
+  WEEK = "week",
+  MONTH = "month",
+  YEAR = "year",
+  ALL = "all",
+}
 
 export interface MovieState {
   trending: tmdbApiResponse;
   status: "idle" | "loading" | "failed";
+}
+
+export interface TrendingPeriod {
+  param: PeriodType;
 }
 
 export interface Movie {
@@ -42,11 +53,10 @@ const initialState: MovieState = {
   status: "idle",
 };
 
-export const fetchMovies = createAsyncThunk(
+export const fetchTrendingAction = createAsyncThunk(
   "movies/fetchTrending",
   async () => {
     const response = await fetchTrending();
-    console.log("response", response);
     return response;
   }
 );
@@ -60,16 +70,13 @@ export const moviesSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchMovies.pending, (state) => {
+    builder.addCase(fetchTrendingAction.pending, (state) => {
       state.trending = {
-        page: 0,
-        results: [],
-        total_pages: 0,
-        total_results: 0,
+        ...initialState.trending,
       };
       state.status = "loading";
     });
-    builder.addCase(fetchMovies.fulfilled, (state, action) => {
+    builder.addCase(fetchTrendingAction.fulfilled, (state, action) => {
       state.trending = action.payload;
       state.status = "idle";
     });
