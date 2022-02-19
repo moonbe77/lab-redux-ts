@@ -15,10 +15,16 @@ export enum PeriodType {
   YEAR = "year",
   ALL = "all",
 }
+export interface ApiError {
+  success: boolean;
+  status_message: string;
+  status_code: number;
+}
 
 export interface MovieState {
   trending: tmdbApiResponse;
   status: "idle" | "loading" | "failed";
+  error: ApiError | null;
 }
 
 export interface TrendingPeriod {
@@ -51,12 +57,17 @@ const initialState: MovieState = {
     total_results: 0,
   },
   status: "idle",
+  error: null,
 };
 
 export const fetchTrendingAction = createAsyncThunk(
   "movies/fetchTrending",
-  async () => {
-    const response = await fetchTrending();
+  async (param: any, { rejectWithValue }) => {
+    const response = await fetchTrending(param);
+    if (response.success === false) {
+      return rejectWithValue(response);
+    }
+
     return response;
   }
 );
@@ -75,15 +86,27 @@ export const moviesSlice = createSlice({
         ...initialState.trending,
       };
       state.status = "loading";
+      state.error = null;
     });
     builder.addCase(fetchTrendingAction.fulfilled, (state, action) => {
       state.trending = action.payload;
       state.status = "idle";
     });
+    builder.addCase(
+      fetchTrendingAction.rejected,
+      (state, action: PayloadAction<{} | ApiError | any>) => {
+        state.status = "failed";
+        state.trending = {
+          ...initialState.trending,
+        };
+        state.error = action.payload;
+      }
+    );
   },
 });
 
 export const { setTrending } = moviesSlice.actions;
 export const selectTrending = (state: RootState) => state.movies.trending;
 export const selectStatus = (state: RootState) => state.movies.status;
+export const moviesState = (state: RootState) => state.movies;
 export default moviesSlice.reducer;

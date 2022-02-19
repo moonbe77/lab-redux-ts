@@ -30,6 +30,7 @@
   position: relative;
   transition: all var(--delay) ease;
   width: 200px;
+  cursor: pointer;
 }
 
 .movieTitle {
@@ -55,7 +56,7 @@
   transition: opacity var(--delay) ease-in-out;
 }
 
-.movie:hover > .movieTitle {
+/* .movie:hover > .movieTitle {
   top: 0;
   transition: top var(--delay) ease-in-out;
 }
@@ -66,7 +67,7 @@
 .movie:hover > .movieOverview {
   opacity: 1;
   transition: opacity var(--delay) ease-in-out;
-}
+} */
 
 .movieOverview {
   opacity: 0;
