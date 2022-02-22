@@ -77,3 +77,11 @@
   color: black;
   padding: 0.5rem;
 }
+
+.filterWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1rem;
+}

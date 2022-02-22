@@ -8,7 +8,9 @@ import {
   TrendingPeriod,
 } from "./moviesSlice";
 import { setActiveMovie } from "../activeMovie/activeMovieSlice";
+import Filter from "./Filter";
 import styles from "./styles.module.css";
+
 const TrendingMovies = () => {
   const dispatch = useAppDispatch();
   const state = useAppSelector(moviesState);
@@ -22,6 +24,7 @@ const TrendingMovies = () => {
   return (
     <div>
       <div className={styles.sectionTitle}>TrendingMovies</div>
+      <Filter values={PeriodType} />
       <div className={styles.status}>{status}</div>
       {error && (
         <div className={styles.error}>
