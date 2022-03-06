@@ -1,6 +1,7 @@
 import React from "react";
 import { searchMovie, searchState } from "./searchSlice";
 import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import PuffLoader from "react-spinners/PuffLoader";
 import styles from "./styles.module.css";
 
 const SearchBar = () => {
@@ -17,23 +18,33 @@ const SearchBar = () => {
 	return (
 		<div className={styles.searchBar}>
 			<div className={styles.searchInput}>
-				<input type="text" placeholder="Search" onChange={handleSearchInput} />
-				{status === "loading" && (
-					<div className={styles.loading}>Loading...</div>
-				)}
-				{error && (
-					<div className={styles.error}>
-						<pre>
-							{/* status code: {error.status_code} \ {error.status_message} */}
-						</pre>
-					</div>
-				)}
-				{search.total_results === 0 && (
-					<div className={styles.noResults}>No results</div>
-				)}
+				<div className={styles.inputWrapper}>
+					<input
+						type="text"
+						placeholder="Search"
+						onChange={handleSearchInput}
+					/>
+					{status === "loading" && (
+						<div className={styles.loading}>
+							<PuffLoader size={30} />
+						</div>
+					)}
+				</div>
+				<div className={styles.searchStatus}>
+					{error && status === "idle" && (
+						<div className={styles.error}>
+							<pre>
+								{/* status code: {error.status_code} \ {error.status_message} */}
+							</pre>
+						</div>
+					)}
+					{search.total_results === 0 && (
+						<div className={styles.noResults}>No results</div>
+					)}
+				</div>
 			</div>
 			{search.total_results > 0 && (
-				<div className={styles.searchWrapper}>
+				<div className={styles.searchResultWrapper}>
 					{search.results.map((movie: any) => (
 						<div key={movie.id}>
 							<img

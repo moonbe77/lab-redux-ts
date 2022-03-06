@@ -11,13 +11,44 @@
 }
 
 .searchInput {
-	border: 1px solid peru;
-	height: 50px;
-	width: 75%;
-	margin-bottom: 15px;
+	font-size: 1.2em;
+	padding: 10px;
+	margin: 0 25px;
+	width: 80%;
 }
 
-.searchWrapper {
+.inputWrapper {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	width: 100%;
+}
+
+.inputWrapper > input {
+	border: none;
+	height: 40px;
+	width: 100%;
+	padding: 0 10px;
+	font-size: 16px;
+}
+.inputWrapper > .loading {
+	position: absolute;
+	top: 0;
+	right: 40px;
+}
+
+.searchStatus {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 30px;
+	width: 100%;
+}
+
+.searchResultWrapper {
 	display: flex;
 	flex-direction: row;
 	overflow-x: scroll;
@@ -25,10 +56,8 @@
 }
 
 .noResults {
-	color: #ff0000;
-	font-size: 20px;
+	font-size: 16px;
 	font-weight: bold;
-	margin-top: 10px;
 	text-align: center;
 	width: 100%;
 }
