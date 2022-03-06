@@ -7,7 +7,6 @@ const MovieDetails = () => {
 	const dispatch = useAppDispatch();
 	const movieState = useAppSelector(ActiveMovieState);
 	const { activeMovie, show } = movieState;
-	console.log(movieState);
 
 	const visible = show ? styles.visible : "";
 

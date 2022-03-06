@@ -5,7 +5,6 @@ import {
 	fetchTrendingAction,
 	Movie,
 	PeriodType,
-	TrendingPeriod,
 } from "./moviesSlice";
 import { setActiveMovie } from "../activeMovie/activeMovieSlice";
 import Filter from "./Filter";
@@ -15,7 +14,6 @@ const TrendingMovies = () => {
 	const dispatch = useAppDispatch();
 	const state = useAppSelector(moviesState);
 	const { trending, error, status } = state;
-
 	useEffect(() => {
 		const param = PeriodType.DAY;
 		dispatch(fetchTrendingAction(param));
@@ -33,14 +31,13 @@ const TrendingMovies = () => {
 					</pre>
 				</div>
 			)}
-			<div className={styles.searchWrapper}></div>
-
 			<div className={styles.movieWrapper}>
 				{trending.results.map((movie: Movie) => (
 					<div
 						key={movie.id}
 						className={styles.movie}
 						onClick={() => dispatch(setActiveMovie(movie))}
+						data-testid="movie"
 					>
 						<img
 							src={`https://image.tmdb.org/t/p/w400/${movie.poster_path}`}

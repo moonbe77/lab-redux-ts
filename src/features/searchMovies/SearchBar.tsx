@@ -9,8 +9,6 @@ const SearchBar = () => {
 	const state = useAppSelector(searchState);
 	const { search, status, error } = state.search;
 
-	console.log("search", search);
-
 	const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		dispatch(searchMovie(e.target.value));
 	};
